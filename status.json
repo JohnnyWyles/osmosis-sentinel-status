@@ -1,0 +1,802 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-28T17:20:01.906Z",
+  "jobs": [
+    {
+      "id": "rate-limits",
+      "everyMs": 900000,
+      "lastSuccessAt": "2026-11-28T17:17:00.466Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "governance",
+      "everyMs": 600000,
+      "lastSuccessAt": "2026-11-28T17:11:03.190Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "chain-events",
+      "everyMs": 120000,
+      "lastSuccessAt": "2026-11-28T17:18:26.092Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "chain-health",
+      "everyMs": 60000,
+      "lastSuccessAt": "2026-11-28T17:19:44.000Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "anomalies",
+      "everyMs": 120000,
+      "lastSuccessAt": "2026-11-28T17:18:54.922Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "ibc-backing",
+      "everyMs": 86400000,
+      "lastSuccessAt": "2026-11-28T00:53:37.822Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "forum",
+      "everyMs": 300000,
+      "lastSuccessAt": "2026-11-28T17:19:02.934Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "ibc-clients",
+      "everyMs": 21600000,
+      "lastSuccessAt": "2026-11-28T12:25:06.145Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "validators",
+      "everyMs": 600000,
+      "lastSuccessAt": "2026-11-28T17:16:02.637Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "pegs",
+      "everyMs": 600000,
+      "lastSuccessAt": "2026-11-28T17:18:03.158Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "alloys",
+      "everyMs": 1800000,
+      "lastSuccessAt": "2026-11-28T17:07:02.396Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "params",
+      "everyMs": 3600000,
+      "lastSuccessAt": "2026-11-28T17:11:03.728Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "balances",
+      "everyMs": 600000,
+      "lastSuccessAt": "2026-11-28T17:13:33.063Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    },
+    {
+      "id": "contract-sweep",
+      "everyMs": 600000,
+      "lastSuccessAt": "2026-11-28T17:17:31.906Z",
+      "consecutiveFailures": 0,
+      "healthy": true
+    }
+  ],
+  "rateLimits": {
+    "timestamp": "2026-11-28T17:17:00.302Z",
+    "pathCount": 38,
+    "maxUtilizationPct": 45.98,
+    "assets": [
+      {
+        "symbol": "USDT.eth.atom",
+        "denom": "ibc/7BC2F718C47C0749791F2612A914C8C39D1A4F533A27AF7285D924D4B617DDA6",
+        "quotaName": "USDT.eth.atom-WEEK-2",
+        "utilizationPct": 30.31,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796447258179923759"
+      },
+      {
+        "symbol": "WBTC.eth.axl",
+        "denom": "ibc/D1542AA8762DB13087D8364F3EA6509FD6F009A34F00426AF9E4F9FA85CBBF1F",
+        "quotaName": "WBTC.eth.axl-DAY-1",
+        "utilizationPct": 19.94,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1795914564489723249"
+      },
+      {
+        "symbol": "USDT",
+        "denom": "factory/osmo1em6xs47hd82806f5cxgyufguxrrc7l0aqx7nzzptjuqgswczk8csavdxek/alloyed/allUSDT",
+        "quotaName": "USDT-WEEK-2",
+        "utilizationPct": 18.98,
+        "direction": "in",
+        "bound": "percentage",
+        "periodEnd": "1795886354141501401"
+      },
+      {
+        "symbol": "ETH.atom",
+        "denom": "ibc/20850C646CDDDC2270E9BBDB08558B5FEE57B647EC6827F41096AABFD8A0471B",
+        "quotaName": "ETH.atom-WEEK-2",
+        "utilizationPct": 5.15,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796447258179923759"
+      },
+      {
+        "symbol": "AKT",
+        "denom": "ibc/1480B8FD20AD5FCAE81EA87584D269547DD4D436843C1D20F15E00EB64743EF4",
+        "quotaName": "AKT-DAY-1",
+        "utilizationPct": 4.38,
+        "direction": "in",
+        "bound": "percentage",
+        "periodEnd": "1795909796205079750"
+      },
+      {
+        "symbol": "LUNC",
+        "denom": "ibc/0EF15DF2F02480ADE0BB6E85D9EBB5DAEA2836D3860E9F97F9AADE4F57A31AA0",
+        "quotaName": "LUNC-WEEK-1",
+        "utilizationPct": 4.14,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796144858179923759"
+      },
+      {
+        "symbol": "ETH.axl",
+        "denom": "ibc/EA1D43981D5C9A1C4AAEA9C23BB1D4FA126BA9BC7020A25E0AE4AA841EA25DC5",
+        "quotaName": "ETH.axl-WEEK-1",
+        "utilizationPct": 4.11,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796144858179923759"
+      },
+      {
+        "symbol": "USDC.inj",
+        "denom": "ibc/794C7D7F3B857713878A3A1927251FA6AC1EEE520424C1F6FAFE9BA26D476138",
+        "quotaName": "USDC.inj-DAY-1",
+        "utilizationPct": 3.9,
+        "direction": "out",
+        "bound": "absolute",
+        "periodEnd": "1795887867776103866"
+      },
+      {
+        "symbol": "ATONE",
+        "denom": "ibc/BC26A7A805ECD6822719472BCB7842A48EF09DF206182F8F259B2593EB5D23FB",
+        "quotaName": "ATONE-DAY-2",
+        "utilizationPct": 2.8,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1795931160274578219"
+      },
+      {
+        "symbol": "ATOM",
+        "denom": "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2",
+        "quotaName": "ATOM-DAY-1",
+        "utilizationPct": 1.19,
+        "direction": "in",
+        "bound": "percentage",
+        "periodEnd": "1795901557529623821"
+      },
+      {
+        "symbol": "SOL.wh",
+        "denom": "ibc/1E43D59E565D41FB4E54CA639B838FFD5BCFC20003D330A56CB1396231AA1CBA",
+        "quotaName": "SOL.wh-WEEK-2",
+        "utilizationPct": 0.85,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796447258179923759"
+      },
+      {
+        "symbol": "TIA",
+        "denom": "ibc/D79E7D83AB399BFFF93433E54FAA480C191248FC556924A2A8351AE2638B3877",
+        "quotaName": "TIA-DAY-1",
+        "utilizationPct": 0.83,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1795887409371196465"
+      },
+      {
+        "symbol": "USDT.eth.inj",
+        "denom": "ibc/2AD3C64D19ADFBB522CD738B58F421102143F827C1CAFF574A8BF0B81017D53D",
+        "quotaName": "USDT.inj-DAY-2",
+        "utilizationPct": 0.53,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1795931948603265171"
+      },
+      {
+        "symbol": "XRP.xrplevm",
+        "denom": "ibc/46EB46DB30D3BBC6F404A9232C09785F36D40DA05C662A8E295712ECBAFF1609",
+        "quotaName": "XRP.xrplevm-WEEK-2",
+        "utilizationPct": 0.45,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796506434557103934"
+      },
+      {
+        "symbol": "INJ",
+        "denom": "ibc/64BA6E31FE887D66C6F8F31C7B1A80C7CA179239677B4088BB55F5EA07DBE273",
+        "quotaName": "INJ-DAY-2",
+        "utilizationPct": 0.2,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796010480362932506"
+      },
+      {
+        "symbol": "WBTC",
+        "denom": "factory/osmo1z0qrq605sjgcqpylfl4aa6s90x738j7m58wyatt0tdzflg2ha26q67k743/wbtc",
+        "quotaName": "WBTC-WEEK-2",
+        "utilizationPct": 0.04,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796699563323723815"
+      },
+      {
+        "symbol": "USDC.noble",
+        "denom": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4",
+        "quotaName": "USDC-DAY-1",
+        "utilizationPct": 0.04,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1795970316679080788"
+      },
+      {
+        "symbol": "USDY",
+        "denom": "ibc/23104D411A6EB6031FA92FB75F227422B84989969E91DCAD56A535DD7FF0A373",
+        "quotaName": "USDY-WEEK-2",
+        "utilizationPct": 0.02,
+        "direction": "in",
+        "bound": "percentage",
+        "periodEnd": "1796297752875420060"
+      },
+      {
+        "symbol": "USDT.kava",
+        "denom": "ibc/4ABBEF4C8926DDDB320AE5188CFD63267ABBCEFC0583E4AE05D6E5AA2401DDAB",
+        "quotaName": "USDT.kava-WEEK-1",
+        "utilizationPct": 0.02,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796320359813525250"
+      },
+      {
+        "symbol": "USDT.eth.axl",
+        "denom": "ibc/8242AD24008032E457D2E12D46588FD39FB54FB29680C6C7663D296B383C37C4",
+        "quotaName": "USDT.eth.axl-DAY-2",
+        "utilizationPct": 0.01,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1795996132470807386"
+      },
+      {
+        "symbol": "OSMO",
+        "denom": "uosmo",
+        "quotaName": "OSMO-WEEK-2",
+        "utilizationPct": 0.01,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796657230418126027"
+      },
+      {
+        "symbol": "BTC",
+        "denom": "factory/osmo1z6r6qdknhgsc0zeracktgpcxf43j6sekq07nw8sxduc9lg0qjjlqfu25e3/alloyed/allBTC",
+        "quotaName": "BTC-WEEK-2",
+        "utilizationPct": 0,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796640687940244860"
+      },
+      {
+        "symbol": "USDC.eth.axl",
+        "denom": "ibc/D189335C6E4A68B513C10AB227BF1C1D38C746766278BA3EEB4FB14124F1D858",
+        "quotaName": "USDC.eth.axl-DAY-2",
+        "utilizationPct": 0,
+        "direction": "out",
+        "bound": "percentage",
+        "periodEnd": "1796012443659873286"
+      }
+    ]
+  },
+  "governance": {
+    "active": [],
+    "recent": [
+      {
+        "id": 1069,
+        "title": "Transfer Stride Wind-Down Transmuter Pools to Osmosis Governance",
+        "status": "PROPOSAL_STATUS_PASSED",
+        "tally": {
+          "yesPct": 99.95630008271677,
+          "noPct": 0.008249450032416858,
+          "vetoPct": 0.002012029721003874,
+          "abstainPct": 0.03343843752981753,
+          "turnoutPct": 51.50814898274743,
+          "quorumPct": 30,
+          "outlook": "passing"
+        }
+      },
+      {
+        "id": 1068,
+        "title": "Store Bluechip creator-pool contract (native-threshold build, 2 of 2)",
+        "status": "PROPOSAL_STATUS_REJECTED",
+        "tally": {
+          "yesPct": 15.664979533683788,
+          "noPct": 33.7336882516163,
+          "vetoPct": 0.027054964947800488,
+          "abstainPct": 50.57427724975212,
+          "turnoutPct": 85.91609556026279,
+          "quorumPct": 30,
+          "outlook": "rejected"
+        }
+      },
+      {
+        "id": 1067,
+        "title": "CosmWasm Pinning Update - November 2026",
+        "status": "PROPOSAL_STATUS_PASSED",
+        "tally": {
+          "yesPct": 99.94353646861592,
+          "noPct": 0.0013639701459816904,
+          "vetoPct": 0.0001705907421721597,
+          "abstainPct": 0.054928970495933725,
+          "turnoutPct": 86.85269253242063,
+          "quorumPct": 30,
+          "outlook": "passing"
+        }
+      },
+      {
+        "id": 1066,
+        "title": "Signal a 10% Minimum Validator Commission",
+        "status": "PROPOSAL_STATUS_PASSED",
+        "tally": {
+          "yesPct": 69.15848155330015,
+          "noPct": 0.5016704600957383,
+          "vetoPct": 0.030569724640777094,
+          "abstainPct": 30.30927826196334,
+          "turnoutPct": 86.81844609061484,
+          "quorumPct": 30,
+          "outlook": "passing"
+        }
+      },
+      {
+        "id": 1065,
+        "title": "Recover IBC Client: Osmosis ↔ MANTRA (07-tendermint-3297)",
+        "status": "PROPOSAL_STATUS_FAILED",
+        "tally": {
+          "yesPct": 93.87078045436948,
+          "noPct": 0.0012147557429008442,
+          "vetoPct": 0.015778238412472608,
+          "abstainPct": 6.112226551475138,
+          "turnoutPct": 89.31536773365542,
+          "quorumPct": 30,
+          "outlook": "passing"
+        }
+      }
+    ]
+  },
+  "subdaos": [
+    {
+      "dao": "Osmosis Grants Program Multisig",
+      "url": "https://daodao.zone/dao/osmo15dwvndrzndzy7nls57rvq379xeta3dlt467dxerxc4pvkul0thvq6umm9z/proposals/A38",
+      "ref": "A38",
+      "title": "Remove member",
+      "status": "open",
+      "expiresAt": "2026-11-29T13:58:47.708Z"
+    },
+    {
+      "dao": "IBC Rate Limit Controller",
+      "url": "https://daodao.zone/dao/osmo186stuv8d8wt38a7n3mfldmjw34u0srq2p7sjhz84sdv38nefua0s0ysu5l/proposals/A95",
+      "ref": "A95",
+      "title": "Restore cbBTC.axl limits after the BTC transfer [HOLD]",
+      "status": "passed",
+      "expiresAt": "2026-11-04T09:13:49.023Z"
+    },
+    {
+      "dao": "IBC Rate Limit Controller",
+      "url": "https://daodao.zone/dao/osmo186stuv8d8wt38a7n3mfldmjw34u0srq2p7sjhz84sdv38nefua0s0ysu5l/proposals/A96",
+      "ref": "A96",
+      "title": "Restore WBTC.eth.axl limits after the BTC transfer [HOLD]",
+      "status": "passed",
+      "expiresAt": "2026-11-04T09:14:23.407Z"
+    },
+    {
+      "dao": "IBC Rate Limit Controller",
+      "url": "https://daodao.zone/dao/osmo186stuv8d8wt38a7n3mfldmjw34u0srq2p7sjhz84sdv38nefua0s0ysu5l/proposals/A97",
+      "ref": "A97",
+      "title": "Restore WBTC.eth.atom limits after the BTC transfer [HOLD]",
+      "status": "passed",
+      "expiresAt": "2026-11-04T09:14:46.066Z"
+    }
+  ],
+  "forum": [
+    {
+      "title": "BlueChip Creator Token and Pool Launch Pad",
+      "url": "https://forum.osmosis.zone/t/bluechip-creator-token-and-pool-launch-pad/4299",
+      "category": "General",
+      "createdAt": "2026-11-24T13:34:11.802Z"
+    },
+    {
+      "title": "Moving tokens between Osmosis and an exchange: the IBC step people miss",
+      "url": "https://forum.osmosis.zone/t/moving-tokens-between-osmosis-and-an-exchange-the-ibc-step-people-miss/4298",
+      "category": "General",
+      "createdAt": "2026-11-22T13:12:54.167Z"
+    },
+    {
+      "title": "Unable to redeem allLINK (Pool #1971) — Transmuter contract shows 0 assets",
+      "url": "https://forum.osmosis.zone/t/unable-to-redeem-alllink-pool-1971-transmuter-contract-shows-0-assets/4292",
+      "category": "Proposal Discussion › Alloyed Assets",
+      "createdAt": "2026-11-17T23:18:47.048Z"
+    },
+    {
+      "title": "Transfer Stride Wind-Down Transmuter Pools to Osmosis Governance",
+      "url": "https://forum.osmosis.zone/t/transfer-stride-wind-down-transmuter-pools-to-osmosis-governance/4287",
+      "category": "Proposal Discussion › DApps / Tooling",
+      "createdAt": "2026-11-16T11:28:33.798Z"
+    },
+    {
+      "title": "Alloyed BTC: Remove WBTC Static Limit",
+      "url": "https://forum.osmosis.zone/t/alloyed-btc-remove-wbtc-static-limit/4272",
+      "category": "Proposal Discussion › Alloyed Assets",
+      "createdAt": "2026-11-06T12:22:06.361Z"
+    },
+    {
+      "title": "Recover expired IBC client 07-tendermint-1808 (Osmosis <> Carbon)",
+      "url": "https://forum.osmosis.zone/t/recover-expired-ibc-client-07-tendermint-1808-osmosis-carbon/4210",
+      "category": "Proposal Discussion",
+      "createdAt": "2026-11-04T09:33:55.893Z"
+    },
+    {
+      "title": "CosmWasm Pinning Update - November 2026",
+      "url": "https://forum.osmosis.zone/t/cosmwasm-pinning-update-november-2026/4200",
+      "category": "Proposal Discussion › DApps / Tooling",
+      "createdAt": "2026-11-03T14:18:46.039Z"
+    },
+    {
+      "title": "Store Bluechip creator-pool contract, Got rid of Pyth Oracle",
+      "url": "https://forum.osmosis.zone/t/store-bluechip-creator-pool-contract-got-rid-of-pyth-oracle/4193",
+      "category": "Proposal Discussion › DApps / Tooling",
+      "createdAt": "2026-11-01T22:06:11.762Z"
+    }
+  ],
+  "ibcClients": [
+    {
+      "usedPct": 67,
+      "clientId": "07-tendermint-3681",
+      "chainId": "qie_1990-1",
+      "channels": "channel-109956",
+      "symbols": "QIE",
+      "status": "Active",
+      "expiresAt": "2026-12-01T11:59:55.165Z",
+      "level": "ok"
+    },
+    {
+      "usedPct": 84,
+      "clientId": "07-tendermint-2785",
+      "chainId": "aioz_168-1",
+      "channels": "channel-779",
+      "symbols": "AIOZ.aioz",
+      "status": "Active",
+      "expiresAt": "2026-12-01T12:15:33.730Z",
+      "level": "expiring"
+    },
+    {
+      "usedPct": 63,
+      "clientId": "07-tendermint-2273",
+      "chainId": "jackal-1",
+      "channels": "channel-412",
+      "symbols": "JKL",
+      "status": "Active",
+      "expiresAt": "2026-12-01T23:27:05.556Z",
+      "level": "ok"
+    }
+  ],
+  "validatorsAtRisk": [],
+  "pegs": [
+    {
+      "group": "USD stables",
+      "symbol": "USDC.noble",
+      "anchor": "USDC",
+      "price": 1,
+      "deviationPct": 0,
+      "cause": null
+    },
+    {
+      "group": "USD stables",
+      "symbol": "USDC.inj",
+      "anchor": "USDC",
+      "price": 1,
+      "deviationPct": 0,
+      "cause": null
+    },
+    {
+      "group": "USD stables",
+      "symbol": "USDC.eth.axl",
+      "anchor": "USDC",
+      "price": 1,
+      "deviationPct": 0,
+      "cause": null
+    },
+    {
+      "group": "USD stables",
+      "symbol": "USDT",
+      "anchor": "USDC",
+      "price": 0.9983286876,
+      "deviationPct": -0.1671312399999958,
+      "cause": null
+    },
+    {
+      "group": "USD stables",
+      "symbol": "USDT.kava",
+      "anchor": "USDC",
+      "price": 0.9776570514999999,
+      "deviationPct": -2.234294850000007,
+      "cause": {
+        "kind": "thin",
+        "smallDeviationPct": -0.529124999999997
+      }
+    },
+    {
+      "group": "USD stables",
+      "symbol": "USDT.eth.axl",
+      "anchor": "USDC",
+      "price": 0.9983286876,
+      "deviationPct": -0.1671312399999958,
+      "cause": null
+    },
+    {
+      "group": "BTC",
+      "symbol": "WBTC",
+      "anchor": "BTC",
+      "price": 59614.09282010465,
+      "deviationPct": 0,
+      "cause": null
+    },
+    {
+      "group": "BTC",
+      "symbol": "WBTC.eth.axl",
+      "anchor": "BTC",
+      "price": 59614.09282010465,
+      "deviationPct": 0,
+      "cause": null
+    },
+    {
+      "group": "BTC",
+      "symbol": "cbBTC.axl",
+      "anchor": "BTC",
+      "price": 59614.09282010465,
+      "deviationPct": 0,
+      "cause": null
+    }
+  ],
+  "alloyLimits": [
+    {
+      "alloy": "allUSDT",
+      "denom": "ibc/2AD3C64D19ADFBB522CD738B58F421102143F827C1CAFF574A8BF0B81017D53D",
+      "symbol": "USDT.eth.inj",
+      "sharePct": 74.49385741484772,
+      "limitPct": 75
+    }
+  ],
+  "chain": {
+    "halted": false,
+    "haltSince": null,
+    "recentEvents": [
+      {
+        "feed": "liquidity",
+        "kind": "cl_deposit",
+        "height": 76203755,
+        "txHash": "2138B7E2B3F6E2C3D7098EA998156E06B5147537B430EABC6F2942F5B04D1832",
+        "summary": "Liquidity deposit of 32% from pool #3543 (USDC / GNOD), ~$35,832",
+        "at": "2026-11-26T18:42:21.907Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 76190075,
+        "txHash": "788CED3F20B5D6249A59EDB707A8D240495F84823780C4F12BB99562DFB7B192",
+        "summary": "New Concentrated liquidity pool #3727: INJ / OSMO",
+        "at": "2026-11-26T14:58:24.599Z"
+      },
+      {
+        "feed": "liquidity",
+        "kind": "cl_deposit",
+        "height": 76109092,
+        "txHash": "EDBA40A8752732B81BC7470804668B1D13446661A2958FB73AE2595A11C99CAE",
+        "summary": "Liquidity deposit of 63% from pool #3543 (USDC / GNOD), ~$46,986",
+        "at": "2026-11-25T18:10:24.368Z"
+      },
+      {
+        "feed": "ibc-flows",
+        "kind": "ibc_out",
+        "height": 76094291,
+        "txHash": "46B5DFD3277803733027C10C68FDB47C2279D2F642ED21B38EC0BD9AA6942770",
+        "summary": "IBC passthrough noble-1 → injective-1: 250,000 USDC.noble in, 250,000 USDC.inj out (~$250,000)",
+        "at": "2026-11-25T14:28:40.298Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 76008362,
+        "txHash": "BDCEE914DC3F0112373B6296077C146CEC256FDD71942D1A38AA83B564562C25",
+        "summary": "New Balancer pool #3726: USDC / unlisted",
+        "at": "2026-11-24T15:36:26.899Z"
+      },
+      {
+        "feed": "liquidity",
+        "kind": "cl_withdraw",
+        "height": 75941933,
+        "txHash": "26D04F99D20F8862C3BC6D8005D96BAC81DB3FB393769092A20E50D50D41E870",
+        "summary": "Liquidity withdrawal of 46% from pool #3505 (USDC / ATOM), ~$105,648",
+        "at": "2026-11-23T22:16:25.625Z"
+      },
+      {
+        "feed": "liquidity",
+        "kind": "cl_withdraw",
+        "height": 75941381,
+        "txHash": "EEEE4731CA53A58DE8BD46E1256C6B704A6BAC4A029ECC33CFBA7E964B1A22E6",
+        "summary": "Liquidity withdrawal of 45% from pool #3505 (USDC / ATOM), ~$101,222",
+        "at": "2026-11-23T22:08:24.338Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 75933646,
+        "txHash": "E01678CB998D7A0C639C781C5F7B3B647152DFB93506549DECB289AF54029DC1",
+        "summary": "New Balancer pool #3725: USDC / LUNC",
+        "at": "2026-11-23T19:54:26.274Z"
+      },
+      {
+        "feed": "ibc-flows",
+        "kind": "ibc_out",
+        "height": 75921355,
+        "txHash": "725932598814F0C993351F3F0FDB63E0B747950192F92231D04DC6094F2212B0",
+        "summary": "IBC passthrough noble-1 → injective-1: 250,000 USDC.noble in, 250,000 USDC.inj out (~$250,000)",
+        "at": "2026-11-23T16:38:24.410Z"
+      },
+      {
+        "feed": "staking",
+        "kind": "unbond",
+        "height": 75777439,
+        "txHash": "A66E5430B0F1A6BE05D121AE60BAFE2EC0403D923725C22CEB86F006E9F5B75C",
+        "summary": "Undelegation of 52,576,267.352747 OSMO (50.43% of bonded stake)",
+        "at": "2026-11-22T02:26:25.599Z"
+      },
+      {
+        "feed": "staking",
+        "kind": "unbond",
+        "height": 75684911,
+        "txHash": "5EA08072B3C95447A95CD791EA083E526FF3E13CAFF82E89D8C7C6ABC8E3B6DE",
+        "summary": "Undelegation of 948,562.986023 OSMO (0.63% of bonded stake)",
+        "at": "2026-11-21T02:24:22.366Z"
+      },
+      {
+        "feed": "ibc-flows",
+        "kind": "ibc_out",
+        "height": 75609453,
+        "txHash": "F8122DA8686AEA9479F772AFBD27052A766FEB7654675D264B3D6BE449ECB556",
+        "summary": "IBC out to cosmoshub-4: 304,889.530736 ATOM (~$383,291)",
+        "at": "2026-11-20T05:58:24.429Z"
+      },
+      {
+        "feed": "ibc-flows",
+        "kind": "ibc_out",
+        "height": 75568417,
+        "txHash": "6C2A251E19C363A05FAB18AAFEF6F1ED29D803798433D025CFB4C447A9F46CA1",
+        "summary": "IBC out to axelar-dojo-1: 4 WBTC.eth.axl (~$250,664)",
+        "at": "2026-11-19T19:18:24.331Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 75460288,
+        "txHash": "70FDFA408CA2F6D05A2D600ED93AFA9E61E398A6917564D3CC0D58BF6240A54B",
+        "summary": "New Balancer pool #3724: USDC / unlisted",
+        "at": "2026-11-18T15:10:27.186Z"
+      },
+      {
+        "feed": "ibc-flows",
+        "kind": "ibc_in",
+        "height": 75433491,
+        "txHash": "DE19B9C5EE3844D52A5E4253FD8AC35DC9B309A4E8411E5909F92DC48A722DA2",
+        "summary": "IBC in from axelar-dojo-1: 4 cbBTC.axl (~$258,470)",
+        "at": "2026-11-18T08:12:24.297Z"
+      },
+      {
+        "feed": "ibc-flows",
+        "kind": "ibc_out",
+        "height": 75430083,
+        "txHash": "5B69B1B8E89FB5836B14A36C7EA5DB92B60DE87356A54D927952E5B3ACC1FA1A",
+        "summary": "IBC out to axelar-dojo-1: 4 WBTC.eth.axl (~$258,735)",
+        "at": "2026-11-18T07:18:26.539Z"
+      },
+      {
+        "feed": "liquidity",
+        "kind": "cl_withdraw",
+        "height": 75419374,
+        "txHash": "D5D93B4B020D94CF451293E727F2436D063DFDE9447A11A69D4C7EAB82619DEA",
+        "summary": "Liquidity withdrawal of 90% from pool #1283 (ATOM / stATOM), ~$161,386",
+        "at": "2026-11-18T04:42:25.935Z"
+      },
+      {
+        "feed": "liquidity",
+        "kind": "cl_withdraw",
+        "height": 75419374,
+        "txHash": "D5D93B4B020D94CF451293E727F2436D063DFDE9447A11A69D4C7EAB82619DEA",
+        "summary": "Liquidity withdrawal of 93% from pool #1283 (ATOM / stATOM), ~$229,311",
+        "at": "2026-11-18T04:42:26.078Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 75408886,
+        "txHash": "96577F1D9441E3A21F30BEFD621AF561EDB331B3C4249B826CE081B42CFB38A2",
+        "summary": "New Balancer pool #3723: LTC / BTC / LUNC / USTC",
+        "at": "2026-11-18T01:46:25.892Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 75387549,
+        "txHash": "91E644E50BEEFF8770E43F2CE05CE777E0AE5E52B347324A7E14ED5E7643925C",
+        "summary": "New Stableswap pool #3722: LUNC / KRTC / LUNA / USTC",
+        "at": "2026-11-17T20:14:23.972Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 75386665,
+        "txHash": "7A5D6B487F3886CC6AC2BED9E2C7864520C255464AE7DCA2EF80A2E21368599A",
+        "summary": "New Orderbook 2.0.0 pool #3703: ION / USDC",
+        "at": "2026-11-17T20:00:25.497Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 75386665,
+        "txHash": "7A5D6B487F3886CC6AC2BED9E2C7864520C255464AE7DCA2EF80A2E21368599A",
+        "summary": "New Orderbook 2.0.0 pool #3704: INJ / USDC",
+        "at": "2026-11-17T20:00:25.651Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 75386665,
+        "txHash": "7A5D6B487F3886CC6AC2BED9E2C7864520C255464AE7DCA2EF80A2E21368599A",
+        "summary": "New Orderbook 2.0.0 pool #3713: NYM / USDC",
+        "at": "2026-11-17T20:00:27.146Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 75386665,
+        "txHash": "7A5D6B487F3886CC6AC2BED9E2C7864520C255464AE7DCA2EF80A2E21368599A",
+        "summary": "New Orderbook 2.0.0 pool #3714: LAVA / USDC",
+        "at": "2026-11-17T20:00:27.314Z"
+      },
+      {
+        "feed": "pools",
+        "kind": "pool_created",
+        "height": 75386665,
+        "txHash": "7A5D6B487F3886CC6AC2BED9E2C7864520C255464AE7DCA2EF80A2E21368599A",
+        "summary": "New Orderbook 2.0.0 pool #3715: KYVE / USDC",
+        "at": "2026-11-17T20:00:27.491Z"
+      }
+    ]
+  }
+}

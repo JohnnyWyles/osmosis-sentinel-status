@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Osmosis Sentinel Status</title>
+    <meta
+      name="description"
+      content="Live status of Osmosis IBC rate limits, governance, pegs, IBC clients and the Osmosis Sentinel monitors."
+    />
+    <meta name="theme-color" content="#090524" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap"
+    />
+    <style>
+      /* Colours are the Osmosis app's own tokens (osmoverse, wosmongton,
+         bullish, rust, error). The app is dark only, and so is this page. */
+      :root {
+        --bg: #090524; /* osmoverse-1000 */
+        --panel: #140f34; /* osmoverse-900 */
+        --raised: #201b43; /* osmoverse-850 */
+        --line: #282750; /* osmoverse-800 */
+        --track: #3c356d; /* osmoverse-700 */
+        --text: #e4e1fb; /* osmoverse-100 */
+        --soft: #b0aadc; /* osmoverse-300 */
+        --muted: #958fc0; /* osmoverse-400 */
+        --accent: #8c8af9; /* wosmongton-300 */
+        --accent-strong: #5b57fa; /* wosmongton-500 */
+        --ok: #29d0b2; /* bullish-500 */
+        --warn: #f7cd77;
+        --urgent: #fa825d; /* rust-500 */
+        --block: #ef3456; /* error */
+        --abstain: #736ca3; /* osmoverse-500 */
+        --head: "Poppins", ui-sans-serif, system-ui, sans-serif;
+        --body: "Inter", ui-sans-serif, system-ui, sans-serif;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 72px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(
+            1200px 500px at 50% -200px,
+            rgba(91, 87, 250, 0.18),
+            transparent 70%
+          ),
+          var(--bg);
+        color: var(--text);
+        font: 16px/1.55 var(--body);
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 6px;
+      }
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 32px 16px 64px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--head);
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      h1 {
+        font-size: clamp(24px, 4vw, 32px);
+      }
+      h2 {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--muted);
+        margin: 20px 0 10px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .small {
+        font-size: 14px;
+      }
+      .num {
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      /* Header and overall state */
+      .top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px 24px;
+        margin-bottom: 20px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 35% 30%,
+          #b3b1fd,
+          #5b57fa 55%,
+          #2d1b8f
+        );
+        box-shadow: 0 0 24px rgba(91, 87, 250, 0.45);
+        flex: none;
+      }
+      .overall {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 22px;
+        border-radius: 20px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        margin-bottom: 16px;
+      }
+      .overall .dot {
+        width: 14px;
+        height: 14px;
+        flex: none;
+      }
+      .overall b {
+        font-family: var(--head);
+        font-weight: 600;
+        font-size: 18px;
+        display: block;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .stat {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px 18px;
+      }
+      .stat b {
+        display: block;
+        font-family: var(--head);
+        font-weight: 600;
+        font-size: 26px;
+        font-variant-numeric: tabular-nums;
+        line-height: 1.25;
+      }
+      .stat span {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 10px 0;
+        margin-bottom: 8px;
+        background: linear-gradient(var(--bg) 75%, transparent);
+        scrollbar-width: none;
+      }
+      nav a {
+        flex: none;
+        color: var(--soft);
+        font-size: 14px;
+        font-weight: 500;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+      }
+      nav a:hover {
+        color: var(--text);
+        border-color: var(--track);
+        text-decoration: none;
+      }
+
+      /* Sections */
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+      @media (min-width: 900px) {
+        .grid.two {
+          grid-template-columns: 1fr 1fr;
+          align-items: start;
+        }
+      }
+      section {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 22px;
+        min-width: 0;
+      }
+      .section-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 4px 12px;
+        margin-bottom: 14px;
+      }
+      .empty {
+        color: var(--muted);
+        padding: 12px 0 2px;
+      }
+
+      /* Status dots and tags */
+      .dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: currentColor;
+        box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 18%, transparent);
+        flex: none;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 2px 10px;
+        border-radius: 999px;
+        background: color-mix(in srgb, currentColor 14%, transparent);
+        white-space: nowrap;
+        vertical-align: 1px;
+      }
+
+      /* Monitors */
+      .monitors {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+      }
+      .monitor {
+        background: var(--raised);
+        border-radius: 14px;
+        padding: 12px 14px;
+        display: grid;
+        gap: 2px;
+      }
+      .monitor .name {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-weight: 600;
+        line-height: 1.4;
+      }
+      .monitor .name .dot {
+        margin-top: 6px;
+      }
+      .monitor .meta {
+        color: var(--muted);
+        font-size: 13px;
+        padding-left: 19px;
+      }
+
+      /* Rows (proposals, clients, events, topics) */
+      .rows {
+        display: grid;
+      }
+      .row {
+        padding: 12px 0;
+        border-top: 1px solid var(--line);
+        display: grid;
+        gap: 4px;
+      }
+      .row:first-child {
+        border-top: none;
+        padding-top: 0;
+      }
+      .row .title {
+        font-weight: 500;
+      }
+      .row .meta {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .ref {
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+        margin-right: 4px;
+      }
+
+      /* Tables */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 10px 8px;
+        border-top: 1px solid var(--line);
+        vertical-align: middle;
+      }
+      th {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 500;
+        border-top: none;
+        padding-top: 0;
+      }
+      th:first-child,
+      td:first-child {
+        padding-left: 0;
+      }
+      th:last-child,
+      td:last-child {
+        padding-right: 0;
+      }
+      .right {
+        text-align: right;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      @media (max-width: 600px) {
+        .hide-sm {
+          display: none;
+        }
+      }
+
+      /* Bars */
+      .bar {
+        position: relative;
+        height: 8px;
+        background: var(--track);
+        border-radius: 999px;
+        overflow: hidden;
+        min-width: 60px;
+      }
+      .bar i {
+        position: absolute;
+        inset: 0 auto 0 0;
+        border-radius: 999px;
+      }
+      .tally {
+        display: flex;
+        height: 8px;
+        border-radius: 999px;
+        overflow: hidden;
+        background: var(--track);
+        margin: 6px 0 2px;
+      }
+      .tally i {
+        display: block;
+        height: 100%;
+      }
+      .turnout {
+        position: relative;
+        height: 4px;
+        background: var(--track);
+        border-radius: 999px;
+        margin-top: 8px;
+      }
+      .turnout i {
+        position: absolute;
+        inset: 0 auto 0 0;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+      .turnout em {
+        position: absolute;
+        top: -4px;
+        bottom: -4px;
+        width: 2px;
+        background: var(--text);
+        border-radius: 1px;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 14px;
+        font-size: 13px;
+        color: var(--soft);
+      }
+      .legend span::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        margin-right: 6px;
+        background: var(--c);
+      }
+
+      button.link {
+        background: none;
+        border: none;
+        color: var(--accent);
+        padding: 0;
+        margin-top: 12px;
+        font: inherit;
+        font-weight: 500;
+        cursor: pointer;
+      }
+      details.about {
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      details.about summary {
+        cursor: pointer;
+        color: var(--soft);
+        font-weight: 500;
+      }
+      details.about p {
+        max-width: 75ch;
+      }
+      footer {
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .error {
+        color: var(--block);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="top">
+        <div class="brand">
+          <span class="mark" aria-hidden="true"></span>
+          <h1>Osmosis Sentinel Status</h1>
+        </div>
+        <span class="muted small" id="updated">Loading…</span>
+      </div>
+
+      <div class="overall" id="overall" role="status">
+        <span class="dot" style="color: var(--muted)"></span>
+        <div><b>Loading status…</b></div>
+      </div>
+      <div class="stats" id="stats"></div>
+
+      <nav aria-label="Sections">
+        <a href="#rate-limits">Rate limits</a>
+        <a href="#governance">Governance</a>
+        <a href="#subdaos">SubDAOs</a>
+        <a href="#pegs">Pegs</a>
+        <a href="#ibc-clients">IBC clients</a>
+        <a href="#chain">Chain events</a>
+        <a href="#forum">Forum</a>
+        <a href="#monitors">Monitors</a>
+      </nav>
+
+      <div class="grid">
+        <section id="rate-limits">
+          <div class="section-head">
+            <h2>IBC rate limits</h2>
+            <span class="muted small" id="rl-taken"></span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th class="hide-sm">Window</th>
+                <th style="width: 34%">Used</th>
+                <th class="right">%</th>
+                <th class="right hide-sm">Resets</th>
+              </tr>
+            </thead>
+            <tbody id="rl-rows"></tbody>
+          </table>
+          <button class="link" id="rl-toggle" hidden>Show all assets</button>
+        </section>
+
+        <section id="governance">
+          <div class="section-head">
+            <h2>Osmosis governance</h2>
+            <div class="legend" aria-hidden="true">
+              <span style="--c: var(--ok)">Yes</span>
+              <span style="--c: var(--urgent)">No</span>
+              <span style="--c: var(--block)">Veto</span>
+              <span style="--c: var(--abstain)">Abstain</span>
+            </div>
+          </div>
+          <div class="rows" id="gov-active"></div>
+          <h3>Recent results</h3>
+          <div class="rows" id="gov-recent"></div>
+        </section>
+
+        <section id="subdaos">
+          <div class="section-head"><h2>SubDAO proposals</h2></div>
+          <div class="rows" id="subdao-rows"></div>
+        </section>
+
+        <div class="grid two">
+          <section id="pegs">
+            <div class="section-head">
+              <h2>Pegs</h2>
+              <span class="muted small"
+                >selling $10k into allUSDC or allBTC</span
+              >
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th>Group</th>
+                  <th class="right">Price</th>
+                  <th class="right">Deviation</th>
+                </tr>
+              </thead>
+              <tbody id="peg-rows"></tbody>
+            </table>
+            <h3>Alloyed Asset Limits</h3>
+            <div class="rows" id="alloy-rows"></div>
+            <h3>Validators</h3>
+            <div class="rows" id="val-risk"></div>
+          </section>
+
+          <section id="ibc-clients">
+            <div class="section-head">
+              <h2>IBC clients</h2>
+              <span class="muted small">behind listed assets</span>
+            </div>
+            <div class="rows" id="client-rows"></div>
+          </section>
+
+          <section id="chain">
+            <div class="section-head">
+              <h2>Chain events</h2>
+              <span id="chain-state"></span>
+            </div>
+            <div class="rows" id="event-rows"></div>
+          </section>
+
+          <section id="forum">
+            <div class="section-head"><h2>Forum</h2></div>
+            <div class="rows" id="forum-rows"></div>
+          </section>
+        </div>
+
+        <section id="monitors">
+          <div class="section-head">
+            <h2>Monitors</h2>
+            <span class="muted small">the checks behind this page</span>
+          </div>
+          <div class="monitors" id="monitor-tiles"></div>
+        </section>
+      </div>
+
+      <details class="about">
+        <summary>About this page</summary>
+        <p>
+          Rate-limit use is the share of each asset's binding window already
+          used: net flow against the rate-limiter contract's cap. Alerts fire at
+          80%, 95% and 100%, where transfers are blocked. Snapshots are taken
+          every 15 minutes.
+        </p>
+        <p>
+          Governance tallies are live while voting is open. The outlook is how
+          the vote would resolve if it closed now: quorum on turnout of bonded
+          stake, then veto, then yes against the non-abstain votes. The white
+          mark on the turnout bar is quorum.
+        </p>
+        <p>
+          Pegs quote selling $10,000 of each USD stable or BTC variant into
+          allUSDC or allBTC along the best route; a rate 1% (USD) or 2% (BTC)
+          away, or no route at that size, is flagged with its cause: the asset's
+          alloy is full (its share is at the transmuter's static limit, so it
+          can't be swapped in), thin liquidity ($100 still sells at par), or a
+          possible depeg ($100 sells off too). Alloy members are listed once
+          within 5 points of their static limit. IBC clients are listed once
+          more than half their trusting period has passed without an update.
+        </p>
+      </details>
+      <footer>
+        Raw data: <a href="status.json">status.json</a> ·
+        <a href="rate-limits.json">rate-limits.json</a>
+      </footer>
+    </main>
+
+    <script>
+      const TOP = 10;
+      let showAll = false;
+      let last = null;
+
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) =>
+        String(s).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c]
+        );
+
+      const C = {
+        ok: "var(--ok)",
+        warn: "var(--warn)",
+        urgent: "var(--urgent)",
+        block: "var(--block)",
+        accent: "var(--accent)",
+        muted: "var(--muted)",
+      };
+      const tag = (text, color) =>
+        `<span class="tag" style="color:${color}">${esc(text)}</span>`;
+      // Relative time, with the exact UTC time on hover.
+      const timeEl = (iso, text) =>
+        `<time datetime="${esc(iso)}" title="${esc(new Date(iso).toUTCString())}">${esc(text)}</time>`;
+
+      function ago(iso) {
+        const mins = Math.round((Date.now() - Date.parse(iso)) / 60000);
+        if (mins < 1) return "just now";
+        if (mins < 60) return `${mins} min ago`;
+        const h = Math.floor(mins / 60);
+        if (h < 48) return `${h} h ago`;
+        return `${Math.floor(h / 24)} days ago`;
+      }
+      function untilMs(ms) {
+        const left = ms - Date.now();
+        if (left <= 0) return "now";
+        const h = Math.floor(left / 3600000);
+        if (h >= 48) return `in ${Math.round(h / 24)} days`;
+        if (h >= 1) return `in ${h} h`;
+        return `in ${Math.max(1, Math.round(left / 60000))} min`;
+      }
+      const untilIso = (iso) => untilMs(Date.parse(iso));
+      const untilNs = (ns) => untilMs(Number(BigInt(ns) / 1000000n));
+      const pctText = (n, d = 1) => `${n.toFixed(d)}%`;
+
+      function levelColor(pct) {
+        if (pct >= 100) return C.block;
+        if (pct >= 95) return C.urgent;
+        if (pct >= 80) return C.warn;
+        return C.ok;
+      }
+
+      const JOB_NAME = {
+        "rate-limits": "IBC rate limits",
+        governance: "Osmosis governance",
+        "chain-events": "Chain events",
+        "chain-health": "Chain halt watch",
+        forum: "Forum",
+        "ibc-clients": "IBC clients",
+        validators: "Validators",
+        pegs: "Pegs",
+        alloys: "Alloyed Asset Limits",
+        params: "Parameter changes",
+        balances: "Treasury and drains",
+        "contract-sweep": "Contract sweep",
+      };
+      const every = (ms) =>
+        ms >= 3600000
+          ? `every ${Math.round(ms / 3600000)} h`
+          : `every ${Math.round(ms / 60000)} min`;
+
+      function renderOverall(status, stale) {
+        const failing = status.jobs.filter((j) => !j.healthy);
+        const chain = status.chain;
+        let color, title, detail;
+        if (chain?.halted) {
+          color = C.block;
+          title = "Osmosis chain halted";
+          detail = `No new blocks since ${chain.haltSince.slice(11, 16)} UTC.`;
+        } else if (stale) {
+          color = C.block;
+          title = "This page is out of date";
+          detail = `The monitor last published ${ago(status.generatedAt)}; what's shown may no longer be current.`;
+        } else if (failing.length) {
+          color = C.warn;
+          title = `${failing.length} of ${status.jobs.length} monitors degraded`;
+          detail = failing.map((j) => JOB_NAME[j.id] ?? j.id).join(", ");
+        } else {
+          color = C.ok;
+          title = "All monitors operational";
+          detail =
+            "Osmosis is producing blocks and every check ran on schedule.";
+        }
+        $("overall").innerHTML =
+          `<span class="dot" style="color:${color}"></span><div><b>${esc(title)}</b><span class="muted small">${esc(detail)}</span></div>`;
+      }
+
+      function renderStats(status) {
+        const rl = status.rateLimits;
+        const gov = status.governance;
+        const pegsOff = (status.pegs ?? []).filter(
+          (p) =>
+            p.deviationPct == null ||
+            Math.abs(p.deviationPct) >= (p.group === "BTC" ? 2 : 1)
+        ).length;
+        const clients = (status.ibcClients ?? []).filter(
+          (c) => c.level !== "ok"
+        ).length;
+        const stats = [
+          rl
+            ? [
+                pctText(rl.maxUtilizationPct),
+                "highest rate-limit use",
+                levelColor(rl.maxUtilizationPct),
+              ]
+            : ["–", "rate limits not read yet"],
+          gov ? [gov.active.length, "open proposals"] : null,
+          status.pegs
+            ? [
+                pegsOff,
+                pegsOff === 1 ? "peg off target" : "pegs off target",
+                pegsOff ? C.urgent : C.ok,
+              ]
+            : null,
+          status.ibcClients
+            ? [
+                clients,
+                clients === 1 ? "IBC client expiring" : "IBC clients expiring",
+                clients ? C.urgent : C.ok,
+              ]
+            : null,
+        ].filter(Boolean);
+        $("stats").innerHTML = stats
+          .map(
+            ([value, label, color]) =>
+              `<div class="stat"><b${color ? ` style="color:${color}"` : ""}>${esc(value)}</b><span>${esc(label)}</span></div>`
+          )
+          .join("");
+      }
+
+      function renderMonitors(status, stale) {
+        // Failing first, then in the publisher's order.
+        const jobs = [...status.jobs].sort(
+          (a, b) => Number(a.healthy) - Number(b.healthy)
+        );
+        $("monitor-tiles").innerHTML = jobs
+          .map((j) => {
+            const healthy = j.healthy && !stale;
+            const color = healthy
+              ? C.ok
+              : j.consecutiveFailures > 0
+                ? C.block
+                : C.warn;
+            const state = healthy
+              ? `${every(j.everyMs)} · ran ${j.lastSuccessAt ? ago(j.lastSuccessAt) : "never"}`
+              : j.consecutiveFailures > 0
+                ? `failing, ${j.consecutiveFailures} runs in a row`
+                : `not running · last ran ${j.lastSuccessAt ? ago(j.lastSuccessAt) : "never"}`;
+            return `<div class="monitor"><span class="name"><span class="dot" style="color:${color}"></span>${esc(JOB_NAME[j.id] ?? j.id)}</span><span class="meta">${esc(state)}</span></div>`;
+          })
+          .join("");
+      }
+
+      // Same reading as the bot's alerts: "USDT-WEEK-2" is "Weekly Limit #2".
+      const PERIOD = {
+        HOUR: "Hourly",
+        DAY: "Daily",
+        WEEK: "Weekly",
+        MONTH: "Monthly",
+      };
+      function quotaLabel(name, symbol) {
+        const m = /-(HOUR|DAY|WEEK|MONTH)(?:-(\d+))?$/i.exec(name);
+        if (m)
+          return `${PERIOD[m[1].toUpperCase()]} Limit${m[2] ? ` #${m[2]}` : ""}`;
+        return name.toLowerCase() === symbol.toLowerCase() ? "Limit" : name;
+      }
+
+      function renderRateLimits(rl) {
+        if (!rl) {
+          $("rl-rows").innerHTML =
+            `<tr><td colspan="5" class="empty">No snapshot yet.</td></tr>`;
+          return;
+        }
+        $("rl-taken").innerHTML =
+          `${rl.pathCount} limited paths · ${timeEl(rl.timestamp, ago(rl.timestamp))}`;
+        const rows = showAll ? rl.assets : rl.assets.slice(0, TOP);
+        $("rl-rows").innerHTML = rows
+          .map((a) => {
+            const pct = a.utilizationPct;
+            const color = levelColor(pct);
+            const dir = a.direction === "in" ? "Inflow" : "Outflow";
+            const kind = a.bound === "absolute" ? " (absolute cap)" : "";
+            const resetsMs = Number(BigInt(a.periodEnd) / 1000000n);
+            return `<tr>
+              <td><b>${esc(a.symbol)}</b><div class="sub">${dir}${kind}</div></td>
+              <td class="hide-sm sub">${esc(quotaLabel(a.quotaName, a.symbol))}</td>
+              <td><div class="bar" role="img" aria-label="${esc(pctText(pct))} used"><i style="width:${Math.min(100, pct)}%;background:${color}"></i></div></td>
+              <td class="right num" style="color:${color};font-weight:600">${esc(pctText(pct))}</td>
+              <td class="right hide-sm num sub" title="${esc(new Date(resetsMs).toUTCString())}">${esc(untilMs(resetsMs))}</td>
+            </tr>`;
+          })
+          .join("");
+        const toggle = $("rl-toggle");
+        toggle.hidden = rl.assets.length <= TOP;
+        toggle.textContent = showAll
+          ? `Show the top ${TOP}`
+          : `Show all ${rl.assets.length} assets`;
+      }
+
+      const OUTLOOK = {
+        passing: ["Passing", C.ok],
+        rejected: ["Rejected", C.block],
+        vetoed: ["Vetoed", C.block],
+        "failing quorum": ["Short of quorum", C.warn],
+      };
+      const RESULT = {
+        PROPOSAL_STATUS_PASSED: ["Passed", C.ok],
+        PROPOSAL_STATUS_REJECTED: ["Rejected", C.block],
+        PROPOSAL_STATUS_FAILED: ["Failed to execute", C.urgent],
+      };
+      const mintscan = (id) =>
+        `https://www.mintscan.io/osmosis/proposals/${id}`;
+
+      function tallyBar(t) {
+        const parts = [
+          [t.yesPct, "var(--ok)", "Yes"],
+          [t.noPct, "var(--urgent)", "No"],
+          [t.vetoPct, "var(--block)", "Veto"],
+          [t.abstainPct, "var(--abstain)", "Abstain"],
+        ];
+        const label = parts
+          .map(([v, , n]) => `${n} ${v.toFixed(1)}%`)
+          .join(", ");
+        return `<div class="tally" role="img" aria-label="${esc(label)}">${parts
+          .map(([v, c]) => `<i style="width:${v}%;background:${c}"></i>`)
+          .join("")}</div>`;
+      }
+      const tallyLine = (t) =>
+        `Yes ${t.yesPct.toFixed(1)}% · No ${t.noPct.toFixed(1)}% · Veto ${t.vetoPct.toFixed(1)}% · Abstain ${t.abstainPct.toFixed(1)}%`;
+
+      function renderGov(gov) {
+        if (!gov) return;
+        $("gov-active").innerHTML = gov.active.length
+          ? gov.active
+              .map((p) => {
+                const voting = p.status === "PROPOSAL_STATUS_VOTING_PERIOD";
+                const t = p.tally;
+                const [outlook, color] = (t && OUTLOOK[t.outlook]) || [
+                  t?.outlook ?? "",
+                  C.muted,
+                ];
+                const when = voting
+                  ? `Voting ends ${timeEl(p.votingEndTime, untilIso(p.votingEndTime))}`
+                  : "Deposit period";
+                const turnout =
+                  voting && t && t.turnoutPct != null
+                    ? `<div class="turnout" role="img" aria-label="Turnout ${esc(pctText(t.turnoutPct))}, quorum ${esc(pctText(t.quorumPct, 0))}"><i style="width:${Math.min(100, t.turnoutPct)}%"></i><em style="left:${t.quorumPct}%"></em></div>
+                       <div class="meta">Turnout ${esc(pctText(t.turnoutPct))} of bonded stake (quorum ${esc(pctText(t.quorumPct, 0))})</div>`
+                    : "";
+                return `<div class="row">
+                  <div class="title"><a class="ref" href="${mintscan(p.id)}">#${p.id}</a>${esc(p.title)}${p.expedited ? " " + tag("Expedited", C.accent) : ""}</div>
+                  <div class="meta">${when}${voting && t ? " · " + tag(outlook, color) : ""}</div>
+                  ${voting && t ? tallyBar(t) + `<div class="meta">${esc(tallyLine(t))}</div>` + turnout : ""}
+                </div>`;
+              })
+              .join("")
+          : `<div class="empty">No open proposals.</div>`;
+        $("gov-recent").innerHTML = gov.recent.length
+          ? gov.recent
+              .map((p) => {
+                const [label, color] = RESULT[p.status] ?? [p.status, C.muted];
+                return `<div class="row">
+                  <div class="title"><a class="ref" href="${mintscan(p.id)}">#${p.id}</a>${esc(p.title)} ${tag(label, color)}</div>
+                  ${p.tally ? `<div class="meta">${esc(tallyLine(p.tally))}</div>` : ""}
+                </div>`;
+              })
+              .join("")
+          : `<div class="empty">No results yet.</div>`;
+      }
+
+      const DAO_STATUS = {
+        open: ["Voting", C.accent],
+        passed: ["Passed, awaiting execution", C.warn],
+        veto_timelock: ["Veto timelock", C.warn],
+      };
+      function renderSubdaos(list) {
+        if (!list) return;
+        $("subdao-rows").innerHTML = list.length
+          ? list
+              .map((p) => {
+                const [label, color] = DAO_STATUS[p.status] ?? [
+                  p.status,
+                  C.muted,
+                ];
+                const ends =
+                  p.status === "open" && p.expiresAt
+                    ? ` · ends ${timeEl(p.expiresAt, untilIso(p.expiresAt))}`
+                    : "";
+                return `<div class="row">
+                  <div class="title"><a class="ref" href="${esc(p.url)}">${esc(p.ref)}</a>${esc(p.title)}</div>
+                  <div class="meta">${esc(p.dao)} · ${tag(label, color)}${ends}</div>
+                </div>`;
+              })
+              .join("")
+          : `<div class="empty">No open subDAO proposals.</div>`;
+      }
+
+      const CLIENT_LEVEL = {
+        frozen: ["Frozen", C.block],
+        expiring: ["Expiring", C.urgent],
+        ok: ["Over half used", C.warn],
+      };
+      function renderClients(list) {
+        if (!list) return;
+        $("client-rows").innerHTML = list.length
+          ? list
+              .map((c) => {
+                const [label, color] = CLIENT_LEVEL[c.level] ?? [
+                  c.level,
+                  C.muted,
+                ];
+                const used = c.usedPct ?? 0;
+                const symbols = c.symbols.split(",").filter(Boolean);
+                const shown =
+                  symbols.slice(0, 6).join(", ") +
+                  (symbols.length > 6 ? ` +${symbols.length - 6}` : "");
+                return `<div class="row">
+                  <div class="title">${esc(c.chainId)} ${tag(label, color)}</div>
+                  ${c.usedPct != null ? `<div class="bar" role="img" aria-label="${used}% of trusting period used"><i style="width:${Math.min(100, used)}%;background:${color}"></i></div>` : ""}
+                  <div class="meta">${c.usedPct != null ? `${used}% of trusting period used` : ""}${c.expiresAt ? ` · expires ${timeEl(c.expiresAt, untilIso(c.expiresAt))}` : ""}</div>
+                  <div class="meta">${esc(shown)} · ${esc(c.clientId)} · ${esc(c.channels)}</div>
+                </div>`;
+              })
+              .join("")
+          : `<div class="empty">Every listed asset's IBC client was updated within the first half of its trusting period.</div>`;
+      }
+
+      const CAUSE = {
+        "alloy-full": (c) => `${c.alloy} full`,
+        thin: () => "thin liquidity",
+        depeg: () => "possible depeg",
+      };
+      function renderAlloys(list) {
+        if (!list) return;
+        $("alloy-rows").innerHTML = list.length
+          ? list
+              .map((a) => {
+                const full = a.sharePct >= a.limitPct;
+                const color = full ? C.block : C.warn;
+                return `<div class="row">
+                  <div class="title">${esc(a.symbol)} in ${esc(a.alloy)} ${tag(full ? "Full" : "Near limit", color)}</div>
+                  <div class="bar" role="img" aria-label="${a.sharePct.toFixed(1)}% of ${a.limitPct.toFixed(0)}% limit"><i style="width:${Math.min(100, (a.sharePct / a.limitPct) * 100)}%;background:${color}"></i></div>
+                  <div class="meta">${a.sharePct.toFixed(1)}% of the alloy, limit ${a.limitPct.toFixed(0)}%</div>
+                </div>`;
+              })
+              .join("")
+          : `<div class="empty">Every alloy member is more than 5 points under its static limit.</div>`;
+      }
+
+      function renderPegs(list, risk) {
+        if (list) {
+          $("peg-rows").innerHTML = list
+            .map((p) => {
+              const limit = p.group === "BTC" ? 2 : 1;
+              const none = p.deviationPct == null;
+              const off = none || Math.abs(p.deviationPct) >= limit;
+              const color = off ? C.block : C.ok;
+              const sign = !none && p.deviationPct > 0 ? "+" : "";
+              const price = none
+                ? "–"
+                : p.group === "BTC"
+                  ? "$" + Math.round(p.price).toLocaleString("en-US")
+                  : "$" + p.price.toFixed(4);
+              return `<tr>
+                <td><b>${esc(p.symbol)}</b>${p.cause ? `<div class="sub">${esc(CAUSE[p.cause.kind]?.(p.cause) ?? p.cause.kind)}</div>` : ""}</td>
+                <td class="sub">${esc(p.group)}</td>
+                <td class="right num">${esc(price)}</td>
+                <td class="right num" style="color:${color};font-weight:600">${none ? "no route" : `${sign}${p.deviationPct.toFixed(2)}%`}</td>
+              </tr>`;
+            })
+            .join("");
+        }
+        if (risk) {
+          $("val-risk").innerHTML = risk.length
+            ? risk
+                .map(
+                  (v) =>
+                    `<div class="row"><div class="title">${esc(v.moniker)} ${tag("Missing blocks", C.warn)}</div><div class="meta">Past ${v.risk === 2 ? "80" : "50"}% of the misses allowed before jailing</div></div>`
+                )
+                .join("")
+            : `<div class="empty">No active validator is near its missed-block limit.</div>`;
+        }
+      }
+
+      const FEED_LABEL = {
+        pools: "Pool",
+        contracts: "Contract",
+        incentives: "Gauge",
+        staking: "Stake",
+        tokens: "Token",
+        liquidity: "Liquidity",
+        "ibc-flows": "IBC",
+      };
+      function renderChain(chain) {
+        if (!chain) return;
+        $("chain-state").innerHTML = chain.halted
+          ? tag(`Halted since ${chain.haltSince.slice(11, 16)} UTC`, C.block)
+          : tag("Producing blocks", C.ok);
+        $("event-rows").innerHTML = chain.recentEvents.length
+          ? chain.recentEvents
+              .map(
+                (e) => `<div class="row">
+                  <div class="title">${tag(FEED_LABEL[e.feed] ?? e.feed, C.accent)} ${esc(e.summary)}</div>
+                  <div class="meta"><a href="https://www.mintscan.io/osmosis/tx/${esc(e.txHash)}">${timeEl(e.at, ago(e.at))}</a></div>
+                </div>`
+              )
+              .join("")
+          : `<div class="empty">Nothing notable yet. New pools, contract uploads and migrations, gauges, large stake moves and listed-token changes appear here.</div>`;
+      }
+
+      function renderForum(list) {
+        if (!list) return;
+        $("forum-rows").innerHTML = list.length
+          ? list
+              .map(
+                (t) => `<div class="row">
+                  <div class="title"><a href="${esc(t.url)}">${esc(t.title)}</a></div>
+                  <div class="meta">${esc(t.category ?? "")} · ${timeEl(t.createdAt, ago(t.createdAt))}</div>
+                </div>`
+              )
+              .join("")
+          : `<div class="empty">No topics yet.</div>`;
+      }
+
+      function render(status) {
+        // The bot publishes every 15 minutes; past three missed publishes
+        // the page itself is stale.
+        const stale = Date.now() - Date.parse(status.generatedAt) > 45 * 60000;
+        $("updated").innerHTML =
+          `Updated ${timeEl(status.generatedAt, ago(status.generatedAt))}` +
+          (stale ? " " + tag("Stale", C.block) : "");
+        renderOverall(status, stale);
+        renderStats(status);
+        renderRateLimits(status.rateLimits);
+        renderGov(status.governance);
+        renderSubdaos(status.subdaos);
+        renderPegs(status.pegs, status.validatorsAtRisk);
+        renderAlloys(status.alloyLimits);
+        renderClients(status.ibcClients);
+        renderChain(status.chain);
+        renderForum(status.forum);
+        renderMonitors(status, stale);
+      }
+
+      async function load() {
+        try {
+          const res = await fetch(`status.json?t=${Date.now()}`, {
+            cache: "no-store",
+          });
+          if (!res.ok) throw new Error(res.status);
+          last = await res.json();
+          render(last);
+        } catch (e) {
+          $("updated").innerHTML =
+            `<span class="error">Could not load status (${esc(e.message)})</span>`;
+        }
+      }
+
+      $("rl-toggle").addEventListener("click", () => {
+        showAll = !showAll;
+        if (last) renderRateLimits(last.rateLimits);
+      });
+      load();
+      setInterval(load, 60000);
+    </script>
+  </body>
+</html>
